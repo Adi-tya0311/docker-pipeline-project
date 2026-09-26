@@ -43,8 +43,6 @@ If you're evaluating this repo for what it teaches, look past the HTML and look 
 | 🚚 **Order tracking & history** | Follow the (simulated) journey |
 | 🎨 **Responsive UI** | Looks right on desktop and mobile |
 
-> Backend, database, payments, and live delivery logistics are **out of scope by design** — see [Roadmap](#-roadmap) for where those fit in next.
-
 ---
 
 **One push. Zero manual deploys.** That's the whole pitch.
