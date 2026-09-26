@@ -17,7 +17,7 @@ Write code → push to GitHub → Jenkins builds it → Docker ships it → EC2 
 
 ---
 
-## 🎯 Why This Project Exists
+## Project Idea
 
 Most beginner projects stop at "it runs on my machine." **Feasto doesn't.**
 
@@ -32,7 +32,7 @@ If you're evaluating this repo for what it teaches, look past the HTML and look 
 
 ---
 
-## ✨ What's Inside
+## Application Uses
 
 | | |
 |---|---|
