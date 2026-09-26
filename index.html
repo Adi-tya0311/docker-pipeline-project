@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>DevDeploy | Deployment Dashboard</title>
+    <title>Feasto — Food Delivered Happy</title>
 
     <style>
         * {
@@ -14,455 +15,751 @@
         }
 
         :root {
-            --bg: #080b12;
-            --sidebar: #0d111a;
-            --card: #111722;
-            --card-hover: #151d2a;
-            --border: #202938;
-            --text: #f1f5f9;
-            --muted: #8b98aa;
-            --blue: #38bdf8;
-            --green: #22c55e;
-            --yellow: #f59e0b;
-            --red: #ef4444;
+            --primary: #ff4d2d;
+            --primary-dark: #e63e20;
+            --cream: #fff8f3;
+            --dark: #171717;
+            --gray: #6b7280;
+            --light: #f5f5f5;
+            --white: #ffffff;
+            --green: #16a34a;
+            --border: #eeeeee;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
+            font-family: Inter, Arial, sans-serif;
+            background: var(--cream);
+            color: var(--dark);
         }
 
-        /* =========================
-        SIDEBAR
-        ========================== */
+        button,
+        input {
+            font: inherit;
+        }
 
-        .sidebar {
-            position: fixed;
-            left: 0;
+        button {
+            cursor: pointer;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: white;
+            position: sticky;
             top: 0;
-            width: 240px;
-            height: 100vh;
-            background: var(--sidebar);
-            border-right: 1px solid var(--border);
-            padding: 25px 18px;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .navbar {
+            max-width: 1250px;
+            margin: auto;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 22px;
+            gap: 25px;
         }
 
         .logo {
+            font-size: 30px;
+            font-weight: 900;
+            color: var(--primary);
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--dark);
+        }
+
+        .location {
+            color: var(--gray);
+            font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 21px;
-            font-weight: bold;
+            gap: 7px;
+            white-space: nowrap;
+        }
+
+        .location strong {
+            color: var(--dark);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            border: none;
+            background: transparent;
+            font-weight: 600;
+            color: #333;
+            padding: 10px 14px;
+            border-radius: 10px;
+        }
+
+        .nav-btn:hover {
+            background: #fff0eb;
+            color: var(--primary);
+        }
+
+        .cart-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 11px 17px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .cart-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            background:
+                radial-gradient(circle at 85% 30%, rgba(255,255,255,.18), transparent 30%),
+                linear-gradient(135deg, #ff4d2d, #ff7b45);
+            color: white;
+        }
+
+        .hero-inner {
+            max-width: 1250px;
+            margin: auto;
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 55px 22px;
+            gap: 40px;
+        }
+
+        .hero-text {
+            max-width: 650px;
+        }
+
+        .hero-text small {
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: .9;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 6vw, 72px);
+            line-height: .98;
+            margin: 15px 0;
+            letter-spacing: -3px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: .92;
+            margin-bottom: 28px;
+        }
+
+        .hero-search {
+            background: white;
+            padding: 7px;
+            border-radius: 15px;
+            display: flex;
+            max-width: 620px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.15);
+        }
+
+        .hero-search input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        .hero-search button {
+            border: none;
+            background: var(--dark);
+            color: white;
+            padding: 0 25px;
+            border-radius: 11px;
+            font-weight: 700;
+        }
+
+        .hero-food {
+            font-size: 150px;
+            filter: drop-shadow(0 20px 15px rgba(0,0,0,.15));
+        }
+
+        /* ================= MAIN ================= */
+
+        main {
+            max-width: 1250px;
+            margin: auto;
+            padding: 35px 22px 80px;
+        }
+
+        .section {
             margin-bottom: 45px;
         }
 
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 9px;
-            background: var(--blue);
-            color: #071018;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-        }
-
-        .nav-title {
-            font-size: 11px;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin: 20px 12px 10px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            border-radius: 8px;
-            color: var(--muted);
-            margin-bottom: 5px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .nav-item:hover,
-        .nav-item.active {
-            background: #17202d;
-            color: var(--text);
-        }
-
-        .nav-item.active {
-            border-left: 3px solid var(--blue);
-        }
-
-        /* =========================
-        MAIN
-        ========================== */
-
-        .main {
-            margin-left: 240px;
-            padding: 30px;
-        }
-
-        .topbar {
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
-        .page-title h1 {
-            font-size: 28px;
-            margin-bottom: 7px;
+        .section-header h2 {
+            font-size: 27px;
         }
 
-        .page-title p {
-            color: var(--muted);
+        .section-header span {
+            color: var(--gray);
             font-size: 14px;
         }
 
-        .top-actions {
-            display: flex;
-            align-items: center;
+        /* ================= CATEGORIES ================= */
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
             gap: 15px;
         }
 
-        .clock {
-            color: var(--muted);
+        .category {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 17px 8px;
+            text-align: center;
+            transition: .2s;
+        }
+
+        .category:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: #ffd2c8;
+        }
+
+        .category.active {
+            background: #fff0eb;
+            border-color: var(--primary);
+        }
+
+        .category-icon {
+            font-size: 34px;
+            margin-bottom: 8px;
+        }
+
+        .category-name {
+            font-weight: 700;
             font-size: 13px;
         }
 
-        .status-pill {
+        /* ================= RESTAURANTS ================= */
+
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .restaurant {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: .25s;
+        }
+
+        .restaurant:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .restaurant-image {
+            height: 190px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 9px 14px;
-            border-radius: 20px;
-            background: rgba(34, 197, 94, 0.1);
-            color: var(--green);
-            font-size: 13px;
+            justify-content: center;
+            font-size: 85px;
+            position: relative;
+            background: linear-gradient(135deg, #ffd8c8, #fff0df);
         }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
+        .restaurant:nth-child(2) .restaurant-image {
+            background: linear-gradient(135deg, #ffe0a8, #fff4d7);
+        }
+
+        .restaurant:nth-child(3) .restaurant-image {
+            background: linear-gradient(135deg, #d5f5d0, #efffea);
+        }
+
+        .restaurant:nth-child(4) .restaurant-image {
+            background: linear-gradient(135deg, #e4d7ff, #f5f0ff);
+        }
+
+        .restaurant:nth-child(5) .restaurant-image {
+            background: linear-gradient(135deg, #ccecff, #effaff);
+        }
+
+        .restaurant:nth-child(6) .restaurant-image {
+            background: linear-gradient(135deg, #ffd0d8, #fff0f2);
+        }
+
+        .rating {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
             background: var(--green);
-            box-shadow: 0 0 10px var(--green);
-        }
-
-        /* =========================
-        STATS
-        ========================== */
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-            margin-bottom: 22px;
-        }
-
-        .stat-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 22px;
-            transition: 0.2s;
-        }
-
-        .stat-card:hover {
-            background: var(--card-hover);
-            transform: translateY(-2px);
-        }
-
-        .stat-header {
-            display: flex;
-            justify-content: space-between;
-            color: var(--muted);
-            font-size: 13px;
-            margin-bottom: 15px;
-        }
-
-        .stat-icon {
-            font-size: 18px;
-        }
-
-        .stat-value {
-            font-size: 27px;
-            font-weight: bold;
-            margin-bottom: 7px;
-        }
-
-        .stat-change {
-            color: var(--green);
+            color: white;
+            padding: 6px 9px;
+            border-radius: 8px;
             font-size: 12px;
+            font-weight: 800;
         }
 
-        /* =========================
-        GRID
-        ========================== */
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
+        .restaurant-info {
+            padding: 17px;
         }
 
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
+        .restaurant-info h3 {
+            font-size: 19px;
+            margin-bottom: 6px;
         }
 
-        .card-title {
+        .restaurant-info p {
+            color: var(--gray);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .restaurant-meta {
             display: flex;
             justify-content: space-between;
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .restaurant-meta strong {
+            color: var(--dark);
+        }
+
+        .view-menu {
+            width: 100%;
+            margin-top: 15px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            padding: 11px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        /* ================= MENU MODAL ================= */
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.55);
+            z-index: 2000;
+            display: none;
             align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            width: 100%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 22px;
+            padding: 25px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 18px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: #f3f3f3;
+            font-size: 20px;
+        }
+
+        .modal-header {
+            padding-right: 50px;
             margin-bottom: 25px;
         }
 
-        .card-title h2 {
-            font-size: 17px;
+        .modal-header h2 {
+            font-size: 27px;
         }
 
-        .card-title span {
-            font-size: 12px;
-            color: var(--muted);
+        .modal-header p {
+            color: var(--gray);
+            margin-top: 5px;
         }
 
-        /* =========================
-        PIPELINE
-        ========================== */
-
-        .pipeline {
+        .menu-item {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin: 35px 0;
+            gap: 20px;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border);
         }
 
-        .pipeline-step {
-            text-align: center;
-            position: relative;
+        .menu-item-info {
             flex: 1;
         }
 
-        .pipeline-step:not(:last-child)::after {
-            content: "";
-            position: absolute;
-            top: 19px;
-            left: 60%;
-            width: 80%;
-            height: 2px;
-            background: var(--green);
+        .menu-item h3 {
+            margin-bottom: 5px;
         }
 
-        .pipeline-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(34, 197, 94, 0.12);
-            border: 1px solid var(--green);
-            color: var(--green);
+        .menu-item p {
+            color: var(--gray);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .menu-price {
+            font-weight: 800;
+            margin-top: 10px;
+        }
+
+        .food-icon {
+            width: 85px;
+            height: 85px;
+            background: #fff3ed;
+            border-radius: 15px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            margin: auto;
-            position: relative;
-            z-index: 2;
+            justify-content: center;
+            font-size: 42px;
         }
 
-        .pipeline-step p {
-            margin-top: 12px;
-            font-size: 12px;
-            color: var(--muted);
+        .add-btn {
+            margin-top: 10px;
+            border: 1px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            padding: 7px 17px;
+            border-radius: 8px;
+            font-weight: 800;
         }
 
-        /* =========================
-        DEPLOYMENT INFO
-        ========================== */
+        .add-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
 
-        .info-row {
+        /* ================= CART ================= */
+
+        .cart-panel {
+            position: fixed;
+            right: -450px;
+            top: 0;
+            height: 100vh;
+            width: 420px;
+            max-width: 100%;
+            background: white;
+            z-index: 3000;
+            box-shadow: -10px 0 40px rgba(0,0,0,.18);
+            transition: .3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-panel.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 22px;
+            border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
-            padding: 14px 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 13px;
+            align-items: center;
         }
 
-        .info-row:last-child {
-            border-bottom: none;
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
         }
 
-        .info-label {
-            color: var(--muted);
+        .empty-cart {
+            text-align: center;
+            padding: 70px 20px;
+            color: var(--gray);
         }
 
-        .info-value {
-            font-weight: bold;
+        .empty-cart div {
+            font-size: 65px;
+            margin-bottom: 15px;
         }
 
-        .success {
-            color: var(--green);
-        }
-
-        .blue {
-            color: var(--blue);
-        }
-
-        /* =========================
-        ACTIVITY
-        ========================== */
-
-        .activity {
-            margin-top: 20px;
-        }
-
-        .activity-item {
+        .cart-item {
             display: flex;
-            gap: 15px;
+            align-items: center;
+            gap: 12px;
             padding: 15px 0;
             border-bottom: 1px solid var(--border);
         }
 
-        .activity-item:last-child {
-            border-bottom: none;
-        }
-
-        .activity-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: rgba(34, 197, 94, 0.1);
-            color: var(--green);
+        .cart-item-icon {
+            width: 50px;
+            height: 50px;
+            background: #fff3ed;
+            border-radius: 10px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 13px;
+            justify-content: center;
+            font-size: 25px;
         }
 
-        .activity-content {
+        .cart-item-details {
             flex: 1;
         }
 
-        .activity-content strong {
-            font-size: 13px;
+        .cart-item-details strong {
+            display: block;
+            margin-bottom: 4px;
         }
 
-        .activity-content p {
-            color: var(--muted);
-            font-size: 12px;
-            margin-top: 4px;
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 9px;
         }
 
-        .activity-time {
-            color: var(--muted);
-            font-size: 11px;
+        .quantity button {
+            width: 26px;
+            height: 26px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 6px;
         }
 
-        /* =========================
-        BUTTON
-        ========================== */
+        .cart-footer {
+            border-top: 1px solid var(--border);
+            padding: 20px;
+        }
 
-        .deploy-btn {
+        .bill-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: var(--gray);
+        }
+
+        .bill-total {
+            font-size: 20px;
+            color: var(--dark);
+            font-weight: 900;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #ddd;
+        }
+
+        .checkout-btn {
             width: 100%;
-            padding: 13px;
             border: none;
-            border-radius: 8px;
-            background: var(--blue);
-            color: #071018;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: 0.2s;
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            border-radius: 11px;
+            font-weight: 800;
+            margin-top: 15px;
         }
 
-        .deploy-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(56, 189, 248, 0.2);
+        /* ================= ORDER ================= */
+
+        .order-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: var(--shadow);
         }
 
-        /* =========================
-        TOAST
-        ========================== */
+        .tracking {
+            margin-top: 25px;
+        }
+
+        .tracking-line {
+            height: 6px;
+            background: #eee;
+            border-radius: 10px;
+            position: relative;
+            margin: 35px 15px;
+        }
+
+        .tracking-progress {
+            height: 100%;
+            width: 70%;
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        .tracking-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: -53px;
+        }
+
+        .tracking-step {
+            text-align: center;
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .tracking-step div {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #eee;
+            margin: auto auto 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tracking-step.active {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .tracking-step.active div {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ================= ADDRESS ================= */
+
+        .address-form {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .address-form input,
+        .address-form textarea {
+            width: 100%;
+            border: 1px solid #ddd;
+            padding: 13px;
+            border-radius: 10px;
+            outline: none;
+            margin-top: 8px;
+            margin-bottom: 15px;
+        }
+
+        .address-form textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .address-form input:focus,
+        .address-form textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .save-address {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        /* ================= TOAST ================= */
 
         .toast {
             position: fixed;
             bottom: 25px;
-            right: 25px;
-            background: #17202d;
-            border: 1px solid var(--border);
-            padding: 15px 20px;
-            border-radius: 8px;
-            display: none;
-            font-size: 13px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            left: 50%;
+            transform: translate(-50%, 100px);
+            background: var(--dark);
+            color: white;
+            padding: 13px 20px;
+            border-radius: 10px;
+            z-index: 5000;
+            opacity: 0;
+            transition: .3s;
         }
 
-        /* =========================
-        RESPONSIVE
-        ========================== */
+        .toast.show {
+            transform: translate(-50%, 0);
+            opacity: 1;
+        }
 
-        @media (max-width: 1100px) {
+        /* ================= RESPONSIVE ================= */
 
-            .stats {
+        @media (max-width: 900px) {
+            .categories {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .restaurant-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .dashboard-grid {
-                grid-template-columns: 1fr;
+            .hero-food {
+                display: none;
             }
         }
 
-        @media (max-width: 700px) {
-
-            .sidebar {
-                width: 65px;
-                padding: 20px 10px;
+        @media (max-width: 600px) {
+            .navbar {
+                height: auto;
+                padding: 15px;
+                flex-wrap: wrap;
             }
 
-            .logo span,
-            .nav-item span,
-            .nav-title {
+            .location {
+                order: 3;
+                width: 100%;
+            }
+
+            .nav-btn {
                 display: none;
             }
 
-            .logo {
-                justify-content: center;
+            .hero-inner {
+                padding: 45px 20px;
             }
 
-            .nav-item {
-                justify-content: center;
+            .hero h1 {
+                font-size: 45px;
             }
 
-            .main {
-                margin-left: 65px;
-                padding: 20px;
+            .categories {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
             }
 
-            .stats {
+            .restaurant-grid {
                 grid-template-columns: 1fr;
             }
 
-            .topbar {
-                align-items: flex-start;
-                gap: 15px;
-                flex-direction: column;
-            }
-
-            .pipeline {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .pipeline-step:not(:last-child)::after {
-                display: none;
+            .hero-search button {
+                padding: 0 15px;
             }
         }
     </style>
@@ -470,140 +767,258 @@
 
 <body>
 
-<!-- =========================
-    SIDEBAR
-========================== -->
+<!-- ================= HEADER ================= -->
 
-<aside class="sidebar">
+<header>
+    <nav class="navbar">
+        <div class="logo">Feasto<span>.</span></div>
 
-    <div class="logo">
-        <div class="logo-icon">D</div>
-        <span>DevDeploy</span>
-    </div>
-
-    <div class="nav-title">Workspace</div>
-
-    <div class="nav-item active">
-        <span>▣</span>
-        <span>Dashboard</span>
-    </div>
-
-    <div class="nav-item">
-        <span>↻</span>
-        <span>Deployments</span>
-    </div>
-
-    <div class="nav-item">
-        <span>▣</span>
-        <span>Containers</span>
-    </div>
-
-    <div class="nav-title">System</div>
-
-    <div class="nav-item">
-        <span>⚙</span>
-        <span>Settings</span>
-    </div>
-
-</aside>
-
-
-<!-- =========================
-    MAIN CONTENT
-========================== -->
-
-<main class="main">
-
-    <div class="topbar">
-
-        <div class="page-title">
-            <h1>Deployment Dashboard</h1>
-            <p>Monitor your application's CI/CD pipeline.</p>
+        <div class="location">
+            📍 <span>Deliver to <strong id="locationText">Your Location</strong></span>
         </div>
 
-        <div class="top-actions">
-
-            <div class="clock" id="clock">
-                Loading...
-            </div>
-
-            <div class="status-pill">
-                <div class="status-dot"></div>
-                System Online
-            </div>
-
+        <div class="nav-actions">
+            <button class="nav-btn" onclick="scrollToSection('restaurants')">Restaurants</button>
+            <button class="nav-btn" onclick="scrollToSection('orders')">Orders</button>
+            <button class="cart-btn" onclick="toggleCart()">
+                🛒 Cart <span id="cartCount">0</span>
+            </button>
         </div>
+    </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+    <div class="hero-inner">
+
+        <div class="hero-text">
+            <small>Good food. Good mood.</small>
+
+            <h1>
+                Your cravings,<br>
+                delivered.
+            </h1>
+
+            <p>
+                Discover delicious food from your favourite restaurants
+                and get it delivered to your doorstep.
+            </p>
+
+            <div class="hero-search">
+                <input
+                    id="searchInput"
+                    type="text"
+                    placeholder="Search for pizza, biryani, burgers..."
+                    oninput="searchFood()"
+                >
+                <button onclick="searchFood()">Search</button>
+            </div>
+        </div>
+
+        <div class="hero-food">🍕</div>
 
     </div>
+</section>
 
+<!-- ================= MAIN ================= -->
 
-    <!-- =========================
-        STATS
-    ========================== -->
+<main>
 
-    <section class="stats">
+    <!-- CATEGORIES -->
 
-        <div class="stat-card">
+    <section class="section">
 
-            <div class="stat-header">
-                <span>Application</span>
-                <span class="stat-icon">🌐</span>
-            </div>
-
-            <div class="stat-value">Online</div>
-
-            <div class="stat-change">
-                ● Operational
-            </div>
-
+        <div class="section-header">
+            <h2>What's on your mind?</h2>
+            <span>Explore categories</span>
         </div>
 
+        <div class="categories">
 
-        <div class="stat-card">
-
-            <div class="stat-header">
-                <span>Deployments</span>
-                <span class="stat-icon">🚀</span>
+            <div class="category active" onclick="filterCategory('All', this)">
+                <div class="category-icon">🍽️</div>
+                <div class="category-name">All</div>
             </div>
 
-            <div class="stat-value" id="deploymentCount">
-                24
+            <div class="category" onclick="filterCategory('Pizza', this)">
+                <div class="category-icon">🍕</div>
+                <div class="category-name">Pizza</div>
             </div>
 
-            <div class="stat-change">
-                ↑ 100% successful
+            <div class="category" onclick="filterCategory('Burger', this)">
+                <div class="category-icon">🍔</div>
+                <div class="category-name">Burgers</div>
             </div>
 
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-header">
-                <span>Docker</span>
-                <span class="stat-icon">🐳</span>
+            <div class="category" onclick="filterCategory('Indian', this)">
+                <div class="category-icon">🍛</div>
+                <div class="category-name">Indian</div>
             </div>
 
-            <div class="stat-value">Running</div>
+            <div class="category" onclick="filterCategory('Chinese', this)">
+                <div class="category-icon">🍜</div>
+                <div class="category-name">Chinese</div>
+            </div>
 
-            <div class="stat-change">
-                ● Container healthy
+            <div class="category" onclick="filterCategory('Dessert', this)">
+                <div class="category-icon">🍰</div>
+                <div class="category-name">Desserts</div>
+            </div>
+
+            <div class="category" onclick="filterCategory('Healthy', this)">
+                <div class="category-icon">🥗</div>
+                <div class="category-name">Healthy</div>
+            </div>
+
+            <div class="category" onclick="filterCategory('Beverage', this)">
+                <div class="category-icon">🥤</div>
+                <div class="category-name">Drinks</div>
             </div>
 
         </div>
+    </section>
 
+    <!-- RESTAURANTS -->
 
-        <div class="stat-card">
+    <section class="section" id="restaurants">
 
-            <div class="stat-header">
-                <span>Environment</span>
-                <span class="stat-icon">☁</span>
+        <div class="section-header">
+            <h2>Popular near you</h2>
+            <span id="resultCount">6 restaurants</span>
+        </div>
+
+        <div class="restaurant-grid" id="restaurantGrid">
+
+            <div class="restaurant" data-category="Pizza" data-search="pizza italian cheese">
+                <div class="restaurant-image">
+                    🍕
+                    <span class="rating">★ 4.7</span>
+                </div>
+
+                <div class="restaurant-info">
+                    <h3>Crust & Co.</h3>
+                    <p>Italian • Pizza • Fast Food</p>
+
+                    <div class="restaurant-meta">
+                        <span>🕐 25–30 min</span>
+                        <strong>₹₹</strong>
+                    </div>
+
+                    <button class="view-menu" onclick="openMenu('Crust & Co.')">
+                        View Menu
+                    </button>
+                </div>
             </div>
 
-            <div class="stat-value">Production</div>
 
-            <div class="stat-change">
-                AWS EC2
+            <div class="restaurant" data-category="Burger" data-search="burger american fries">
+                <div class="restaurant-image">
+                    🍔
+                    <span class="rating">★ 4.6</span>
+                </div>
+
+                <div class="restaurant-info">
+                    <h3>Stack House</h3>
+                    <p>American • Burgers • Fries</p>
+
+                    <div class="restaurant-meta">
+                        <span>🕐 20–25 min</span>
+                        <strong>₹₹</strong>
+                    </div>
+
+                    <button class="view-menu" onclick="openMenu('Stack House')">
+                        View Menu
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="restaurant" data-category="Indian" data-search="indian biryani curry">
+                <div class="restaurant-image">
+                    🍛
+                    <span class="rating">★ 4.8</span>
+                </div>
+
+                <div class="restaurant-info">
+                    <h3>Spice Route</h3>
+                    <p>North Indian • Biryani • Curry</p>
+
+                    <div class="restaurant-meta">
+                        <span>🕐 30–35 min</span>
+                        <strong>₹₹₹</strong>
+                    </div>
+
+                    <button class="view-menu" onclick="openMenu('Spice Route')">
+                        View Menu
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="restaurant" data-category="Chinese" data-search="chinese noodles asian">
+                <div class="restaurant-image">
+                    🍜
+                    <span class="rating">★ 4.5</span>
+                </div>
+
+                <div class="restaurant-info">
+                    <h3>Wok This Way</h3>
+                    <p>Chinese • Asian • Noodles</p>
+
+                    <div class="restaurant-meta">
+                        <span>🕐 25–30 min</span>
+                        <strong>₹₹</strong>
+                    </div>
+
+                    <button class="view-menu" onclick="openMenu('Wok This Way')">
+                        View Menu
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="restaurant" data-category="Healthy" data-search="healthy salad fitness">
+                <div class="restaurant-image">
+                    🥗
+                    <span class="rating">★ 4.6</span>
+                </div>
+
+                <div class="restaurant-info">
+                    <h3>Green Bowl</h3>
+                    <p>Healthy • Salads • Bowls</p>
+
+                    <div class="restaurant-meta">
+                        <span>🕐 15–20 min</span>
+                        <strong>₹₹</strong>
+                    </div>
+
+                    <button class="view-menu" onclick="openMenu('Green Bowl')">
+                        View Menu
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="restaurant" data-category="Dessert" data-search="dessert cake ice cream">
+                <div class="restaurant-image">
+                    🍰
+                    <span class="rating">★ 4.9</span>
+                </div>
+
+                <div class="restaurant-info">
+                    <h3>Sweet Theory</h3>
+                    <p>Desserts • Cakes • Ice Cream</p>
+
+                    <div class="restaurant-meta">
+                        <span>🕐 20–25 min</span>
+                        <strong>₹₹</strong>
+                    </div>
+
+                    <button class="view-menu" onclick="openMenu('Sweet Theory')">
+                        View Menu
+                    </button>
+                </div>
             </div>
 
         </div>
@@ -611,341 +1026,86 @@
     </section>
 
 
-    <!-- =========================
-        MAIN GRID
-    ========================== -->
+    <!-- DELIVERY ADDRESS -->
 
-    <section class="dashboard-grid">
+    <section class="section">
 
+        <div class="section-header">
+            <h2>Delivery address</h2>
+            <span>Where should we deliver?</span>
+        </div>
 
-        <!-- PIPELINE -->
+        <div class="address-form">
 
-        <div class="card">
+            <label>Full Name</label>
+            <input id="addressName" placeholder="Enter your name">
 
-            <div class="card-title">
+            <label>Delivery Address</label>
+            <textarea
+                id="addressInput"
+                placeholder="House / Flat, Street, Area, City"
+            ></textarea>
 
-                <h2>CI/CD Pipeline</h2>
+            <label>Phone Number</label>
+            <input id="addressPhone" placeholder="10-digit mobile number">
 
-                <span>Build #24</span>
-
-            </div>
-
-
-            <div class="pipeline">
-
-                <div class="pipeline-step">
-
-                    <div class="pipeline-icon">
-                        ✓
-                    </div>
-
-                    <p>Checkout</p>
-
-                </div>
-
-
-                <div class="pipeline-step">
-
-                    <div class="pipeline-icon">
-                        ✓
-                    </div>
-
-                    <p>Build</p>
-
-                </div>
-
-
-                <div class="pipeline-step">
-
-                    <div class="pipeline-icon">
-                        ✓
-                    </div>
-
-                    <p>Docker</p>
-
-                </div>
-
-
-                <div class="pipeline-step">
-
-                    <div class="pipeline-icon">
-                        ✓
-                    </div>
-
-                    <p>Deploy</p>
-
-                </div>
-
-
-                <div class="pipeline-step">
-
-                    <div class="pipeline-icon">
-                        ✓
-                    </div>
-
-                    <p>Verify</p>
-
-                </div>
-
-            </div>
-
-
-            <div class="info-row">
-
-                <span class="info-label">
-                    Pipeline Status
-                </span>
-
-                <span class="info-value success">
-                    SUCCESS
-                </span>
-
-            </div>
-
-
-            <div class="info-row">
-
-                <span class="info-label">
-                    Last Deployment
-                </span>
-
-                <span class="info-value">
-                    Today
-                </span>
-
-            </div>
-
-
-            <div class="info-row">
-
-                <span class="info-label">
-                    Deployment ID
-                </span>
-
-                <span class="info-value blue" id="deploymentId">
-                    DEP-2026-024
-                </span>
-
-            </div>
-
-
-            <button class="deploy-btn" onclick="checkDeployment()">
-                Check Deployment Status
+            <button class="save-address" onclick="saveAddress()">
+                Save Address
             </button>
 
         </div>
 
-
-        <!-- DEPLOYMENT DETAILS -->
-
-        <div class="card">
-
-            <div class="card-title">
-
-                <h2>Deployment Details</h2>
-
-                <span>Production</span>
-
-            </div>
-
-
-            <div class="info-row">
-
-                <span class="info-label">
-                    Application
-                </span>
-
-                <span class="info-value">
-                    DevDeploy
-                </span>
-
-            </div>
-
-
-            <div class="info-row">
-
-                <span class="info-label">
-                    Version
-                </span>
-
-                <span class="info-value">
-                    v1.0.0
-                </span>
-
-            </div>
-
-
-            <div class="info-row">
-
-                <span class="info-label">
-                    Container
-                </span>
-
-                <span class="info-value blue">
-                    devops-container
-                </span>
-
-            </div>
-
-
-            <div class="info-row">
-
-                <span class="info-label">
-                    Image
-                </span>
-
-                <span class="info-value">
-                    devops-portfolio
-                </span>
-
-            </div>
-
-
-            <div class="info-row">
-
-                <span class="info-label">
-                    Web Server
-                </span>
-
-                <span class="info-value">
-                    Nginx
-                </span>
-
-            </div>
-
-
-            <div class="info-row">
-
-                <span class="info-label">
-                    Port
-                </span>
-
-                <span class="info-value">
-                    8081 → 80
-                </span>
-
-            </div>
-
-
-            <div class="info-row">
-
-                <span class="info-label">
-                    Status
-                </span>
-
-                <span class="info-value success">
-                    ● Healthy
-                </span>
-
-            </div>
-
-        </div>
-
     </section>
 
 
-    <!-- =========================
-        ACTIVITY
-    ========================== -->
+    <!-- ORDER TRACKING -->
 
-    <section class="card activity">
+    <section class="section" id="orders">
 
-        <div class="card-title">
-
-            <h2>Deployment Activity</h2>
-
-            <span>Latest events</span>
-
+        <div class="section-header">
+            <h2>Track your order</h2>
+            <span>Live order status</span>
         </div>
 
+        <div class="order-card">
 
-        <div class="activity-item">
-
-            <div class="activity-icon">
-                ✓
-            </div>
-
-            <div class="activity-content">
-
-                <strong>Deployment completed</strong>
-
-                <p>
-                    Application successfully deployed to production.
+            <div id="orderStatus">
+                <strong>No active order</strong>
+                <p style="color:#777;margin-top:6px;">
+                    Add something delicious to your cart and place an order.
                 </p>
-
             </div>
 
-            <div class="activity-time">
-                Just now
-            </div>
+            <div class="tracking">
 
-        </div>
+                <div class="tracking-line">
+                    <div class="tracking-progress"></div>
+                </div>
 
+                <div class="tracking-steps">
 
-        <div class="activity-item">
+                    <div class="tracking-step active">
+                        <div>✓</div>
+                        Confirmed
+                    </div>
 
-            <div class="activity-icon">
-                ✓
-            </div>
+                    <div class="tracking-step active">
+                        <div>🍳</div>
+                        Preparing
+                    </div>
 
-            <div class="activity-content">
+                    <div class="tracking-step active">
+                        <div>🛵</div>
+                        On the way
+                    </div>
 
-                <strong>Docker container started</strong>
+                    <div class="tracking-step">
+                        <div>🏠</div>
+                        Delivered
+                    </div>
 
-                <p>
-                    devops-container is running on port 8081.
-                </p>
+                </div>
 
-            </div>
-
-            <div class="activity-time">
-                2 min ago
-            </div>
-
-        </div>
-
-
-        <div class="activity-item">
-
-            <div class="activity-icon">
-                ✓
-            </div>
-
-            <div class="activity-content">
-
-                <strong>Docker image built</strong>
-
-                <p>
-                    Image devops-portfolio created successfully.
-                </p>
-
-            </div>
-
-            <div class="activity-time">
-                3 min ago
-            </div>
-
-        </div>
-
-
-        <div class="activity-item">
-
-            <div class="activity-icon">
-                ✓
-            </div>
-
-            <div class="activity-content">
-
-                <strong>Source code checked out</strong>
-
-                <p>
-                    Latest code retrieved from GitHub.
-                </p>
-
-            </div>
-
-            <div class="activity-time">
-                4 min ago
             </div>
 
         </div>
@@ -955,89 +1115,565 @@
 </main>
 
 
-<!-- =========================
-    TOAST
-========================== -->
+<!-- ================= MENU MODAL ================= -->
 
-<div class="toast" id="toast">
-    ✓ Deployment is healthy and running.
+<div class="overlay" id="menuOverlay">
+
+    <div class="modal">
+
+        <button class="close" onclick="closeMenu()">×</button>
+
+        <div class="modal-header">
+            <h2 id="menuRestaurantName">Restaurant</h2>
+            <p>Choose something delicious.</p>
+        </div>
+
+        <div id="menuItems"></div>
+
+    </div>
+
 </div>
 
 
+<!-- ================= CART ================= -->
+
+<div class="cart-panel" id="cartPanel">
+
+    <div class="cart-header">
+        <h2>Your Cart</h2>
+        <button class="close" onclick="toggleCart()">×</button>
+    </div>
+
+    <div class="cart-items" id="cartItems">
+
+        <div class="empty-cart">
+            <div>🛒</div>
+            <strong>Your cart is empty</strong>
+            <p style="margin-top:7px;">
+                Add something tasty from a restaurant.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="cart-footer">
+
+        <div class="bill-row">
+            <span>Item total</span>
+            <strong id="itemTotal">₹0</strong>
+        </div>
+
+        <div class="bill-row">
+            <span>Delivery fee</span>
+            <strong>₹40</strong>
+        </div>
+
+        <div class="bill-row">
+            <span>Taxes</span>
+            <strong id="tax">₹0</strong>
+        </div>
+
+        <div class="bill-row bill-total">
+            <span>Total</span>
+            <strong id="cartTotal">₹0</strong>
+        </div>
+
+        <button class="checkout-btn" onclick="placeOrder()">
+            Place Order
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
 <script>
 
-    /* =========================
-    LIVE CLOCK
-    ========================== */
+    /* ================= DATA ================= */
 
-    function updateClock() {
+    const menus = {
 
-        const now = new Date();
+        "Crust & Co.": [
+            ["Margherita Pizza", "Classic tomato, mozzarella and basil.", 249, "🍕"],
+            ["Farmhouse Pizza", "Loaded with fresh vegetables and cheese.", 329, "🍕"],
+            ["Paneer Tikka Pizza", "Indian paneer tikka with cheesy goodness.", 359, "🧀"],
+            ["Garlic Bread", "Toasted garlic bread with herbs.", 149, "🥖"]
+        ],
 
-        const time = now.toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit"
+        "Stack House": [
+            ["Classic Cheeseburger", "Juicy patty, cheese, lettuce and sauce.", 229, "🍔"],
+            ["Double Stack", "Double patty with double cheese.", 329, "🍔"],
+            ["Crispy Chicken Burger", "Crispy chicken with spicy mayo.", 279, "🍗"],
+            ["Loaded Fries", "Crispy fries topped with cheese.", 179, "🍟"]
+        ],
+
+        "Spice Route": [
+            ["Chicken Biryani", "Aromatic basmati rice with tender chicken.", 299, "🍛"],
+            ["Paneer Butter Masala", "Creamy tomato gravy with paneer.", 249, "🥘"],
+            ["Butter Naan", "Soft naan brushed with butter.", 59, "🫓"],
+            ["Veg Biryani", "Fragrant rice with vegetables and spices.", 229, "🍚"]
+        ],
+
+        "Wok This Way": [
+            ["Hakka Noodles", "Classic stir-fried noodles with vegetables.", 219, "🍜"],
+            ["Schezwan Fried Rice", "Spicy fried rice with vegetables.", 229, "🍚"],
+            ["Chilli Paneer", "Crispy paneer tossed in chilli sauce.", 249, "🌶️"],
+            ["Spring Rolls", "Crispy rolls with fresh vegetables.", 159, "🥢"]
+        ],
+
+        "Green Bowl": [
+            ["Protein Bowl", "Quinoa, vegetables, paneer and greens.", 299, "🥗"],
+            ["Caesar Salad", "Fresh lettuce, croutons and dressing.", 249, "🥗"],
+            ["Avocado Bowl", "Avocado, greens, corn and seeds.", 329, "🥑"],
+            ["Fruit Bowl", "Fresh seasonal fruits.", 199, "🍓"]
+        ],
+
+        "Sweet Theory": [
+            ["Chocolate Cake", "Rich chocolate cake with ganache.", 199, "🍰"],
+            ["Brownie", "Warm fudgy chocolate brownie.", 149, "🍫"],
+            ["Vanilla Ice Cream", "Classic creamy vanilla ice cream.", 129, "🍨"],
+            ["Strawberry Cheesecake", "Creamy cheesecake with strawberry topping.", 249, "🍓"]
+        ]
+
+    };
+
+
+    let cart = [];
+
+
+    /* ================= MENU ================= */
+
+    function openMenu(restaurant) {
+
+        document.getElementById("menuRestaurantName").textContent = restaurant;
+
+        const container = document.getElementById("menuItems");
+
+        container.innerHTML = "";
+
+        menus[restaurant].forEach((item, index) => {
+
+            const [name, description, price, icon] = item;
+
+            container.innerHTML += `
+
+                <div class="menu-item">
+
+                    <div class="menu-item-info">
+
+                        <h3>${name}</h3>
+
+                        <p>${description}</p>
+
+                        <div class="menu-price">
+                            ₹${price}
+                        </div>
+
+                        <button
+                            class="add-btn"
+                            onclick="addToCart('${restaurant}', ${index})"
+                        >
+                            + Add
+                        </button>
+
+                    </div>
+
+                    <div class="food-icon">
+                        ${icon}
+                    </div>
+
+                </div>
+
+            `;
+
         });
 
-        document.getElementById("clock").textContent = time;
+        document.getElementById("menuOverlay").classList.add("show");
     }
 
-    updateClock();
 
-    setInterval(updateClock, 1000);
+    function closeMenu() {
+        document.getElementById("menuOverlay").classList.remove("show");
+    }
 
 
-    /* =========================
-    DEPLOYMENT CHECK
-    ========================== */
+    /* ================= CART ================= */
 
-    function checkDeployment() {
+    function addToCart(restaurant, index) {
 
-        const button = document.querySelector(".deploy-btn");
-        const toast = document.getElementById("toast");
+        const item = menus[restaurant][index];
 
-        button.textContent = "Checking deployment...";
+        const existing = cart.find(
+            x => x.name === item[0]
+        );
 
-        button.disabled = true;
+        if (existing) {
+
+            existing.quantity++;
+
+        } else {
+
+            cart.push({
+                restaurant: restaurant,
+                name: item[0],
+                price: item[2],
+                icon: item[3],
+                quantity: 1
+            });
+
+        }
+
+        updateCart();
+
+        showToast(item[0] + " added to cart");
+    }
+
+
+    function updateCart() {
+
+        const container = document.getElementById("cartItems");
+
+        document.getElementById("cartCount").textContent =
+            cart.reduce((sum, item) => sum + item.quantity, 0);
+
+        if (cart.length === 0) {
+
+            container.innerHTML = `
+                <div class="empty-cart">
+                    <div>🛒</div>
+                    <strong>Your cart is empty</strong>
+                    <p style="margin-top:7px;">
+                        Add something tasty from a restaurant.
+                    </p>
+                </div>
+            `;
+
+        } else {
+
+            container.innerHTML = "";
+
+            cart.forEach((item, index) => {
+
+                container.innerHTML += `
+
+                    <div class="cart-item">
+
+                        <div class="cart-item-icon">
+                            ${item.icon}
+                        </div>
+
+                        <div class="cart-item-details">
+                            <strong>${item.name}</strong>
+                            <span>₹${item.price}</span>
+                        </div>
+
+                        <div class="quantity">
+
+                            <button onclick="changeQuantity(${index}, -1)">
+                                −
+                            </button>
+
+                            <strong>${item.quantity}</strong>
+
+                            <button onclick="changeQuantity(${index}, 1)">
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+        }
+
+        calculateBill();
+    }
+
+
+    function changeQuantity(index, change) {
+
+        cart[index].quantity += change;
+
+        if (cart[index].quantity <= 0) {
+            cart.splice(index, 1);
+        }
+
+        updateCart();
+    }
+
+
+    function calculateBill() {
+
+        const subtotal = cart.reduce(
+            (sum, item) =>
+                sum + item.price * item.quantity,
+            0
+        );
+
+        const tax = Math.round(subtotal * 0.05);
+
+        const delivery = cart.length ? 40 : 0;
+
+        const total = subtotal + tax + delivery;
+
+        document.getElementById("itemTotal").textContent =
+            "₹" + subtotal;
+
+        document.getElementById("tax").textContent =
+            "₹" + tax;
+
+        document.getElementById("cartTotal").textContent =
+            "₹" + total;
+    }
+
+
+    function toggleCart() {
+        document
+            .getElementById("cartPanel")
+            .classList.toggle("open");
+    }
+
+
+    /* ================= SEARCH ================= */
+
+    function searchFood() {
+
+        const query =
+            document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase()
+                .trim();
+
+        const restaurants =
+            document.querySelectorAll(".restaurant");
+
+        let visible = 0;
+
+        restaurants.forEach(card => {
+
+            const searchable =
+                card.dataset.search.toLowerCase();
+
+            if (!query || searchable.includes(query)) {
+
+                card.style.display = "";
+                visible++;
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+        document.getElementById("resultCount").textContent =
+            visible + " restaurants";
+    }
+
+
+    /* ================= CATEGORY FILTER ================= */
+
+    function filterCategory(category, element) {
+
+        document
+            .querySelectorAll(".category")
+            .forEach(cat => cat.classList.remove("active"));
+
+        element.classList.add("active");
+
+        const restaurants =
+            document.querySelectorAll(".restaurant");
+
+        let visible = 0;
+
+        restaurants.forEach(card => {
+
+            if (
+                category === "All" ||
+                card.dataset.category === category
+            ) {
+
+                card.style.display = "";
+                visible++;
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+        document.getElementById("resultCount").textContent =
+            visible + " restaurants";
+    }
+
+
+    /* ================= ADDRESS ================= */
+
+    function saveAddress() {
+
+        const name =
+            document.getElementById("addressName").value.trim();
+
+        const address =
+            document.getElementById("addressInput").value.trim();
+
+        const phone =
+            document.getElementById("addressPhone").value.trim();
+
+        if (!name || !address || !phone) {
+
+            showToast("Please complete your delivery details.");
+
+            return;
+        }
+
+        document.getElementById("locationText").textContent =
+            address.split(",")[0];
+
+        localStorage.setItem(
+            "feastoAddress",
+            JSON.stringify({
+                name,
+                address,
+                phone
+            })
+        );
+
+        showToast("Delivery address saved ✓");
+    }
+
+
+    /* ================= ORDER ================= */
+
+    function placeOrder() {
+
+        if (cart.length === 0) {
+
+            showToast("Your cart is empty.");
+
+            return;
+        }
+
+        const address =
+            localStorage.getItem("feastoAddress");
+
+        if (!address) {
+
+            showToast("Please save your delivery address first.");
+
+            return;
+        }
+
+        const orderId =
+            "FST" + Math.floor(100000 + Math.random() * 900000);
+
+        const total =
+            document.getElementById("cartTotal").textContent;
+
+        document.getElementById("orderStatus").innerHTML = `
+
+            <strong>Order #${orderId}</strong>
+
+            <p style="color:#777;margin-top:6px;">
+                Your order is being prepared.
+                Estimated delivery: 25–35 minutes.
+            </p>
+
+            <p style="margin-top:10px;">
+                <strong>Total: ${total}</strong>
+            </p>
+
+        `;
+
+        localStorage.setItem(
+            "feastoLastOrder",
+            JSON.stringify({
+                id: orderId,
+                total: total,
+                date: new Date().toLocaleString(),
+                status: "Preparing"
+            })
+        );
+
+        cart = [];
+
+        updateCart();
+
+        toggleCart();
+
+        scrollToSection("orders");
+
+        showToast("Order placed successfully 🎉");
+    }
+
+
+    /* ================= UTILITIES ================= */
+
+    function scrollToSection(id) {
+
+        document
+            .getElementById(id)
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+    }
+
+
+    function showToast(message) {
+
+        const toast =
+            document.getElementById("toast");
+
+        toast.textContent = message;
+
+        toast.classList.add("show");
 
         setTimeout(() => {
-
-            button.textContent = "✓ Deployment Healthy";
-
-            toast.style.display = "block";
-
-            setTimeout(() => {
-
-                toast.style.display = "none";
-
-            }, 3000);
-
-            setTimeout(() => {
-
-                button.textContent = "Check Deployment Status";
-                button.disabled = false;
-
-            }, 2000);
-
-        }, 1200);
+            toast.classList.remove("show");
+        }, 2500);
     }
 
 
-    /* =========================
-    GENERATE DEPLOYMENT ID
-    ========================== */
+    /* ================= LOAD SAVED ADDRESS ================= */
 
-    function generateDeploymentId() {
+    window.addEventListener("load", () => {
 
-        const randomNumber =
-            Math.floor(Math.random() * 900) + 100;
+        const saved =
+            localStorage.getItem("feastoAddress");
 
-        document.getElementById("deploymentId").textContent =
-            "DEP-2026-" + randomNumber;
-    }
+        if (saved) {
+
+            const data = JSON.parse(saved);
+
+            document.getElementById("addressName").value =
+                data.name;
+
+            document.getElementById("addressInput").value =
+                data.address;
+
+            document.getElementById("addressPhone").value =
+                data.phone;
+
+            document.getElementById("locationText").textContent =
+                data.address.split(",")[0];
+        }
+
+    });
 
 </script>
 
 </body>
 </html>
+```
